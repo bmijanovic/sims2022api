@@ -9,6 +9,7 @@ using EVChargersAPI.StationManagement.Services;
 using EVChargersAPI.UserManagement.Repositories;
 using EVChargersAPI.UserManagement.Services;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,18 @@ builder.Services.AddCors(feature =>
 var connectionString = builder.Configuration.GetConnectionString("EVChargersConnection");
 builder.Services.AddDbContext<EVChargersContext>(x => x.UseSqlServer(connectionString));
 
+var _connectionStr = new MySqlConnectionStringBuilder
+{
+    Server = "eu-cdbr-west-02.cleardb.net",
+    Database = "heroku_0b191d4544b66f8",
+    UserID = "bcf9f5880782ad",
+    Password = "a5379307",
+    ConnectionTimeout = 60,
+    AllowZeroDateTime = true,
+    Pooling = false
+};
+
+System.Console.WriteLine(_connectionStr.ToString());
 
 var app = builder.Build();
 
